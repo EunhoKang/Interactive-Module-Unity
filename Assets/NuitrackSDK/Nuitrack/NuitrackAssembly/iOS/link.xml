@@ -1,0 +1,5 @@
+<linker>
+	<assembly fullname="nuitrack.net">
+		<type fullname="nuitrack.*" preserve="all"/>
+	</assembly>
+</linker>

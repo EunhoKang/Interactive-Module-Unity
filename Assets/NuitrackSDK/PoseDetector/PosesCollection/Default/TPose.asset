@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 168ffea0f21e8584f832d2c82a1343c7, type: 3}
+  m_Name: TPose
+  m_EditorClassIdentifier: 
+  relativeMode: 1
+  waist:
+    isActive: 1
+    orientation: {x: 0, y: 0, z: 0, w: 1}
+    tolerance: 0.9
+  leftHip:
+    isActive: 1
+    orientation: {x: 0, y: 0, z: 0, w: 1}
+    tolerance: 0.9
+  leftKnee:
+    isActive: 1
+    orientation: {x: 0, y: 0, z: 0, w: 1}
+    tolerance: 0.9
+  rightHip:
+    isActive: 1
+    orientation: {x: 0, y: 0, z: 0, w: 1}
+    tolerance: 0.9
+  rightKnee:
+    isActive: 1
+    orientation: {x: 0, y: 0, z: 0, w: 1}
+    tolerance: 0.9
+  leftShoulder:
+    isActive: 1
+    orientation: {x: 0, y: 0, z: 0.028504, w: -0.9995937}
+    tolerance: 0.9
+  leftElbow:
+    isActive: 1
+    orientation: {x: 0, y: 0, z: 0, w: 1}
+    tolerance: 0.9
+  rightShoulder:
+    isActive: 1
+    orientation: {x: 0, y: 0, z: 0.01167882, w: -0.9999318}
+    tolerance: 0.9
+  rightElbow:
+    isActive: 1
+    orientation: {x: 0, y: 0, z: 0, w: 1}
+    tolerance: 0.9

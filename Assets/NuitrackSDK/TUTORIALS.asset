@@ -1,0 +1,210 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf118ab4270ab6141b7ade13ea6b2383, type: 3}
+  m_Name: TUTORIALS
+  m_EditorClassIdentifier: 
+  tutorialItems:
+  - label: Creating your First Unity Project using Nuitrack SDK
+    previewImage: {fileID: 2800000, guid: 1d190a1a8591b3743b75135b81cdf3b4, type: 3}
+    textURL: https://github.com/3DiVi/nuitrack-sdk/blob/master/doc/Unity_Basic.md
+    videoURL: https://www.youtube.com/watch?v=F1Vx_pu9dbk
+    description: As a result, you'll get a simple app with an option of skeleton
+      detection and tracking, which can be modified into a full-fledged VR app.
+    scene: {fileID: 102900000, guid: 7fd016bdd72ae7140a31558cc82db94c, type: 3}
+    tags:
+    - Skeleton
+  - label: Displaying Skeletons on an RGB Image
+    previewImage: {fileID: 2800000, guid: cdd32b96b70d13844bca3b3697918cbd, type: 3}
+    textURL: https://github.com/3DiVi/nuitrack-sdk/blob/master/doc/Unity_RGB_Skeletons.md
+    videoURL: 
+    description: In this tutorial, you'll learn how to display a color image from
+      your sensor in a Unity project and display the skeletons of users received
+      from Nuitrack.
+    scene: {fileID: 102900000, guid: fd896ab471bbc144c8308776d62a01d1, type: 3}
+    tags:
+    - Skeleton
+    - RGB
+  - label: Animating the Avatar using Skeleton
+    previewImage: {fileID: 2800000, guid: aaf7a6582ac111a4fa487b3b561d4cce, type: 3}
+    textURL: https://github.com/3DiVi/nuitrack-sdk/blob/master/doc/Unity_Avatar_Animation.md
+    videoURL: 
+    description: 'You can animate an avatar by mapping the user''s skeleton and model
+      skeleton. There are two mapping types: direct and indirect.'
+    scene: {fileID: 102900000, guid: 55b2d1f943af33c4ab116e2ce2177209, type: 3}
+    tags:
+    - Skeleton
+  - label: Creating a 3D Point Cloud
+    previewImage: {fileID: 2800000, guid: 61f2b813c850e33408671ef93e3f7fba, type: 3}
+    textURL: https://github.com/3DiVi/nuitrack-sdk/blob/master/doc/Unity_Point_Cloud.md
+    videoURL: 
+    description: The point cloud may be used in many fields, such as 3D modeling,
+      3D gaming, VR apps, etc.
+    scene: {fileID: 102900000, guid: edce5001f60961741bf00e5c43084649, type: 3}
+    tags:
+    - RGB
+    - Depth
+  - label: User Segment Visualization
+    previewImage: {fileID: 2800000, guid: 52b74b1cad3e0794a98492a5b74ba804, type: 3}
+    textURL: https://github.com/3DiVi/nuitrack-sdk/blob/master/doc/Unity_Segment.md
+    videoURL: 
+    description: 'As a result, the user will be displayed as a colored 2D silhouette.
+      And if there are several people in front of the camera, they will be displayed
+      as several silhouettes of different colors. '
+    scene: {fileID: 102900000, guid: c9d128e8cc547bb46b9b3e7ec136078c, type: 3}
+    tags:
+    - Segment
+    - User tracking
+  - label: Creating a VR Boxing Game
+    previewImage: {fileID: 2800000, guid: 346df3e42f014c64787fbdafc85216c6, type: 3}
+    textURL: https://github.com/3DiVi/nuitrack-sdk/blob/master/doc/Unity_VR_Box.md
+    videoURL: 
+    description: In this tutorial, we'll create a simple VR game, in which your avatar
+      is a boxer and you have to punch a dummy as hard as you can.
+    scene: {fileID: 102900000, guid: 289d1c5f295b4034382516e9b9b7d4d3, type: 3}
+    tags:
+    - Skeleton
+    - VR
+  - label: Interactive Multi-Touch Gallery
+    previewImage: {fileID: 2800000, guid: 462b8c1c498be784c866b7742a36d638, type: 3}
+    textURL: https://github.com/3DiVi/nuitrack-sdk/blob/master/doc/Unity_Gallery.md
+    videoURL: 
+    description: 'The gallery will have two modes: preview (several images displayed
+      on one page) and view (when you click on an image, it opens in full screen).'
+    scene: {fileID: 102900000, guid: 587fa7b01402b824ea4bee5ef4b28a25, type: 3}
+    tags:
+    - Hand tracking
+    - Gestures
+  - label: AR Football Game
+    previewImage: {fileID: 2800000, guid: 52e64cc257ecc1648addde1bfb60d59c, type: 3}
+    textURL: https://github.com/3DiVi/nuitrack-sdk/blob/master/doc/Unity_AR_Football.md
+    videoURL: 
+    description: In this tutorial you'll learn how to create an interesting multiplayer
+      game using ARCore (for Android) or ARKit (for iOS) and Nuitrack - we are excited
+      to present you AR Football!
+    scene: {fileID: 0}
+    tags:
+    - Skeleton
+    - AR
+  - label: Zombie Nightmare (Oculus Rift)
+    previewImage: {fileID: 2800000, guid: 85e79dc5864e67b459b2285b209cc65b, type: 3}
+    textURL: https://github.com/3DiVi/nuitrack-sdk/blob/master/doc/Unity_Zombies_Oculus.md
+    videoURL: 
+    description: We'll create a VR game called "Zombie Nightmare". The player's goal
+      is to kill all zombies that randomly appear from everywhere. The player has
+      a limited number of lives.
+    scene: {fileID: 102900000, guid: ee602995bf141ee4ea91df0781597227, type: 3}
+    tags:
+    - Skeleton
+    - VR
+    - Oculus Rift
+  - label: Recording Animation using Nuitrack and Motion Capture
+    previewImage: {fileID: 2800000, guid: c18a3d35c59587e488f806c3eda57a25, type: 3}
+    textURL: https://github.com/3DiVi/nuitrack-sdk/blob/master/doc/Unity_Animation_Recording.md
+    videoURL: 
+    description: 'In this tutorial you''ll learn how to quickly and easily record
+      the animation of your avatar in Unity with Nuitrack. '
+    scene: {fileID: 102900000, guid: 918a49b8b7a3fab4292ca1a156abcb41, type: 3}
+    tags:
+    - Skeleton
+    - Motion Capture
+  - label: Face Tracking
+    previewImage: {fileID: 2800000, guid: e77c82c43f2742340acfe5ba1e93bf78, type: 3}
+    textURL: https://github.com/3DiVi/nuitrack-sdk/blob/master/doc/Unity_Face_Tracking.md
+    videoURL: 
+    description: In this project, an RGB image from the sensor is displayed in the
+      background and emojis are shown instead of faces. The way an emoji looks (its
+      gender, age type, emotion) is determined by the parameters received from Nuitrack.
+    scene: {fileID: 102900000, guid: 5fc8d4d590f784045ba971a0d1b0cbeb, type: 3}
+    tags:
+    - Face tracking
+    - RGB
+  - label: Animated Emoji
+    previewImage: {fileID: 2800000, guid: 93067b8a9814815439248a8a5f36e1ec, type: 3}
+    textURL: https://github.com/3DiVi/nuitrack-sdk/blob/master/doc/Unity_Animated_Emoji.md
+    videoURL: 
+    description: Fox face mimics user's facial expressions. When a user turns his/her
+      head, the fox head is also rotated. You can notice that fox fur is slightly
+      moving when the fox turns its face - an incredible thing to watch.
+    scene: {fileID: 102900000, guid: aa0913db538e760489e52844b8b66e27, type: 3}
+    tags:
+    - Face tracking
+    - RGB
+  - label: Frame Visualization
+    previewImage: {fileID: 2800000, guid: 0343ef19dbb63b345b1c75d153f0e927, type: 3}
+    textURL: 
+    videoURL: 
+    description: Learn the basics for getting frames from the sensor and displaying
+      them in the UI, as well as simple operations on frames (cutting by mask, mixing,
+      etc.).
+    scene: {fileID: 102900000, guid: 88bdb399ba580cf44834700afc7c9587, type: 3}
+    tags:
+    - RGB
+    - Depth
+    - Segment
+    - Frame mixer
+  - label: Object Detection with Nuitrack AI
+    previewImage: {fileID: 2800000, guid: 513bd6a179be9da4b97b32f4df6c0b05, type: 3}
+    textURL: 
+    videoURL: https://www.youtube.com/watch?v=75gpVuwygx8&t=25s
+    description: We will show you how to detect various objects (in our case, a cigarette)
+      on video received from a camera using Nuitrack AI
+    scene: {fileID: 102900000, guid: 4b835738c867cad4a80c5ac17d8a6ab6, type: 3}
+    tags:
+    - Nuitrack AI
+    - RGB
+    - Object tracking
+  - label: Animate a robot with Nuitrack and Final IK
+    previewImage: {fileID: 2800000, guid: e90874bba76167147bc1f15b939949e7, type: 3}
+    textURL: 
+    videoURL: https://www.youtube.com/watch?v=UeZO3GHo_MI
+    description: 'We''ll cover the combination of Nuitrack and Final IK using the
+      example of a robotic spider to animate the robot using the body and hands. '
+    scene: {fileID: 102900000, guid: 438a51411f0080445b4a54c95cc10e14, type: 3}
+    tags:
+    - Skeleton
+    - Final IK
+  - label: Create a simple game "Jump trainer"
+    previewImage: {fileID: 2800000, guid: e7b274e536155e54d998f06ac6814d42, type: 3}
+    textURL: 
+    videoURL: https://www.youtube.com/watch?v=5ehEcfCIBAU&t=1s
+    description: 'We''ll show you how to create a jumping simulator, in which the
+      height lines for the current jump, the best jump, and the floor line will be
+      displayed. '
+    scene: {fileID: 102900000, guid: 2fb5e54603ed7cd468eb54cb57aa07f8, type: 3}
+    tags:
+    - Skeleton
+    - RGB
+    - Floor tracking
+  - label: Nuitrack AR
+    previewImage: {fileID: 2800000, guid: 5c9b1313e29f97849b8e3849d1ba3a0d, type: 3}
+    textURL: 
+    videoURL: https://www.youtube.com/watch?v=vcAwxuPvTyM&t=8s
+    description: You will see how to recreate a real-world environment in Unity with
+      the correct depth map, as well as the ability to interact with objects on the
+      stage ( AR ).
+    scene: {fileID: 102900000, guid: 16569d57f251cde40b049661c01d8c49, type: 3}
+    tags:
+    - RGB
+    - Depth
+    - AR
+    - Skeleton
+    - Floor tracking
+  - label: RGB and 3D Avatar Mapping
+    previewImage: {fileID: 2800000, guid: 1bcac22b9a70b174e94c9a1c6dc42edf, type: 3}
+    textURL: 
+    videoURL: https://www.youtube.com/watch?v=nsqpp102Ayk&t=3s
+    description: You will learn how to create the scene to accurately mapping the
+      3D Avatar to the RGB background.
+    scene: {fileID: 102900000, guid: f41bffd4a39754a49abb21bd624056b1, type: 3}
+    tags:
+    - RGB
+    - Skeleton

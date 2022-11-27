@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b5e8f23d6493e7c4fb325624d63ff6eb
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - camera: {instanceID: 0}
+  - viewCanvas: {fileID: 245510914254444369, guid: bb7bd846501e1814cb62491f9fd6d186,
+      type: 3}
+  - aspectRatioFitter: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

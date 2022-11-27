@@ -1,0 +1,22 @@
+﻿#pragma kernel Segment2Texture
+
+RWTexture2D<float4> Result;
+uniform StructuredBuffer<uint> UserIndexes;
+uniform StructuredBuffer<float4> UserColors;
+
+int textureWidth;
+int textureHeight;
+
+[numthreads(8, 8, 1)]
+void Segment2Texture(uint3 id : SV_DispatchThreadID)
+{
+	uint rawIndex = textureWidth * id.y + id.x;
+	uint userIndex = UserIndexes[rawIndex >> 1];
+	float2 mirrorPos = float2(id.x, textureHeight - id.y);
+
+	// Shift trick, because in the Shader we read two values (Int16) as one (Int32)
+	if(rawIndex % 2 != 0)
+		Result[mirrorPos] = UserColors[userIndex >> 16];
+	else
+		Result[mirrorPos] = UserColors[(userIndex << 16) >> 16];
+}

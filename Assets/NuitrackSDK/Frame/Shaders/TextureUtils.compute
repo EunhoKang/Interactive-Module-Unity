@@ -1,0 +1,38 @@
+﻿#pragma kernel Cut
+#pragma kernel ReverseCut
+#pragma kernel Mul
+#pragma kernel MixMask
+
+Texture2D<float4> Texture;
+Texture2D<float4> Mask;
+
+RWTexture2D<float4> Output;
+
+
+[numthreads(8,8,1)]
+void Cut(uint3 id : SV_DispatchThreadID)
+{
+	Output[id.xy] = Texture[id.xy] * ceil(Mask[id.xy].w);
+}
+
+[numthreads(8,8,1)]
+void ReverseCut(uint3 id : SV_DispatchThreadID)
+{
+	Output[id.xy] = Texture[id.xy] * (1 - ceil(Mask[id.xy].w));
+}
+
+
+[numthreads(8,8,1)]
+void Mul(uint3 id : SV_DispatchThreadID)
+{
+	Output[id.xy] = Texture[id.xy] * Mask[id.xy];
+}
+
+[numthreads(8,8,1)]
+void MixMask(uint3 id : SV_DispatchThreadID)
+{
+	if(Mask[id.xy].w != 0)
+		Output[id.xy] = (Texture[id.xy] + Mask[id.xy]) * 0.5f;
+	else
+		Output[id.xy] = Texture[id.xy];
+}

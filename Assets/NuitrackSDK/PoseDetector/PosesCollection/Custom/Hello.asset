@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 168ffea0f21e8584f832d2c82a1343c7, type: 3}
+  m_Name: Hello
+  m_EditorClassIdentifier: 
+  relativeMode: 0
+  waist:
+    isActive: 0
+    orientation: {x: 0, y: 0, z: 0, w: 1}
+    tolerance: 0.9
+  leftHip:
+    isActive: 0
+    orientation: {x: 0, y: 0, z: 0, w: 1}
+    tolerance: 0.9
+  leftKnee:
+    isActive: 0
+    orientation: {x: 0, y: 0, z: 0, w: 1}
+    tolerance: 0.9
+  rightHip:
+    isActive: 0
+    orientation: {x: 0, y: 0, z: 0, w: 1}
+    tolerance: 0.9
+  rightKnee:
+    isActive: 0
+    orientation: {x: 0, y: 0, z: 0, w: 1}
+    tolerance: 0.9
+  leftShoulder:
+    isActive: 1
+    orientation: {x: 0, y: 0, z: 0.62475234, w: 0.780823}
+    tolerance: 0.9
+  leftElbow:
+    isActive: 1
+    orientation: {x: 0, y: 0, z: 0.699499, w: 0.7146336}
+    tolerance: 0.90000147
+  rightShoulder:
+    isActive: 1
+    orientation: {x: -0.58345276, y: 0.07315994, z: -0.22971575, w: 0.77553934}
+    tolerance: 0.9
+  rightElbow:
+    isActive: 1
+    orientation: {x: -0.52998763, y: -0.57806426, z: 0.32721382, w: 0.527149}
+    tolerance: 0.9

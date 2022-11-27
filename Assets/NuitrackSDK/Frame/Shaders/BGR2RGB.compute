@@ -1,0 +1,13 @@
+﻿#pragma kernel BGR2RGB
+
+RWTexture2D<float4> Result;
+Texture2D<float4> Texture;
+
+int textureHeight;
+
+[numthreads(8,8,1)]
+void BGR2RGB (uint3 id : SV_DispatchThreadID)
+{
+    float2 mirrorPos = float2(id.x, textureHeight - id.y);
+    Result[mirrorPos] = float4(Texture[id.xy].z, Texture[id.xy].y, Texture[id.xy].x, Texture[id.xy].w);
+}

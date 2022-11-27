@@ -1,0 +1,104 @@
+﻿#pragma kernel Depth2Texture
+
+RWTexture2D<float4> Result;
+uniform StructuredBuffer<uint> DepthFrame;
+
+int textureWidth;
+int textureHeight;
+float maxDepthSensor = 10.0F;
+
+
+struct GradientColorKey
+{
+	float4 color;
+	float time;
+};
+
+struct GradientAlphaKey
+{
+	float alpha;
+	float time;
+};
+
+bool fixedMode = false;
+uniform StructuredBuffer<GradientColorKey> gradientColors;
+uniform StructuredBuffer<GradientAlphaKey> gradientAlpha;
+
+
+float4 GradientColor(float time)
+{
+	float4 color = gradientColors[0].color;
+	float last_t = 0;
+
+	float color_t = clamp(time, 0, gradientColors[gradientColors.Length - 1].time);
+
+	for (uint i = 0; i < gradientColors.Length; i++)
+	{
+		if (fixedMode)
+		{
+			if (color_t >= last_t && color_t <= gradientColors[i].time)
+				return gradientColors[i].color;
+		}
+		else
+		{
+			float lerpT = clamp(color_t - last_t, 0, 1) / clamp(gradientColors[i].time - last_t, 0, 1);
+			color = lerp(color, gradientColors[i].color, clamp(lerpT, 0, 1));
+		}
+
+		last_t = gradientColors[i].time;
+	}
+
+	return color;
+}
+
+float GradientAlpha(float time)
+{
+	float last_t = 0;
+	float alpha = gradientAlpha[0].alpha;
+	float alpha_t = clamp(time, 0, gradientAlpha[gradientAlpha.Length - 1].time);
+
+	for (uint i = 0; i < gradientAlpha.Length; i++)
+	{
+		if (fixedMode)
+		{
+			if (alpha_t >= last_t && alpha_t <= gradientAlpha[i].time)
+				return gradientAlpha[i].alpha;
+		}
+		else
+		{
+			float lerpT = clamp(alpha_t - last_t, 0, 1) / clamp(gradientAlpha[i].time - last_t, 0, 1);
+			alpha = lerp(alpha, gradientAlpha[i].alpha, clamp(lerpT, 0, 1));
+		}
+
+		last_t = gradientAlpha[i].time;
+	}
+
+	return alpha;
+}
+
+
+[numthreads(8,8,1)]
+void Depth2Texture (uint3 id : SV_DispatchThreadID)
+{
+	uint rawIndex = textureWidth * id.y + id.x;
+	uint depthVal = DepthFrame[rawIndex >> 1];
+
+	float depth;
+
+	// Shift trick, because in the Shader we read two values (Int16) as one (Int32)
+	if(rawIndex % 2 != 0)
+		depth = float(depthVal >> 16);
+	else
+		depth = float((depthVal << 16) >> 16);
+
+	depth = depth / (1000.0 * maxDepthSensor);
+
+	if (depth == 0)
+		depth = 1;
+
+	float4 color = GradientColor(depth);
+	color.w = GradientAlpha(depth);
+
+	float2 mirrorPos = float2(id.x, textureHeight - id.y);
+	Result[mirrorPos] = color;
+}
