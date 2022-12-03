@@ -43,7 +43,9 @@ namespace NuitrackSDK.Tutorials.FirstProject
                 for (int q = 0; q < typeJoint.Length; q++)
                 {
                     UserData.SkeletonData.Joint joint = NuitrackManager.Users.Current.Skeleton.GetJoint(typeJoint[q]);
-                    CreatedJoint[q].transform.localPosition = joint.Position;
+                    Vector3 jointPos = joint.Position;
+                    jointPos.x *= -1;
+                    CreatedJoint[q].transform.localPosition = jointPos;
                 }
             }
             else
