@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 using NuitrackSDK;
+using UnityEngine.Events;
+using System;
 
 public class TrackManager : MonoBehaviour
 {
@@ -18,19 +21,18 @@ public class TrackManager : MonoBehaviour
     GameObject[] CreatedJoint;
     public GameObject PrefabJoint;
     public Vector3 cameraOffset;
+    public double GestureDelayTime = 0.4f;
     UserData user;
     Vector3 leftHandPosition;
     Vector3 rightHandPosition;
     bool leftHandGrabbed;
     bool rightHandGrabbed;
-    nuitrack.GestureType? gestureType;
-    #region API
-    public Vector3 GetLeftHandPosition(){
-        return leftHandPosition;
-    }
-    public Vector3 GetRightHandPosition(){
-        return rightHandPosition;
-    }
+    #region Tracking Event
+    public UnityEvent OnSwipeLeft;
+    public UnityEvent OnSwipeRight;
+    public UnityEvent OnSwipeUp;
+    public UnityEvent OnSwipeDown;
+    public UnityEvent OnPush;
     #endregion
     #region Unity Event
     void Start()
@@ -55,12 +57,25 @@ public class TrackManager : MonoBehaviour
             Debug.Log("User not found");
     }
     #endregion
+    #region API
+    public Vector3 GetLeftHandPosition(){
+        return leftHandPosition;
+    }
+    public Vector3 GetRightHandPosition(){
+        return rightHandPosition;
+    }
+    public bool GetLeftHandGrabbed(){
+        return leftHandGrabbed;
+    }
+    public bool GetRightHandGrabbed(){
+        return rightHandGrabbed;
+    }
+    #endregion
     #region HandTrack
     void HandTrack(){
         if ( user.Skeleton != null ) {
             for ( int i = 0; i < typeJoint.Length; i++ )
                 UpdateJoint(i);
-            ShowHandState();
         }
         else 
             Debug.Log("Skeleton not found");
@@ -79,19 +94,40 @@ public class TrackManager : MonoBehaviour
         if( user.LeftHand != null ) leftHandGrabbed = user.LeftHand.Click;
         if( user.RightHand != null ) rightHandGrabbed = user.RightHand.Click;
     }
-    void ShowHandState(){
-        Debug.Log($"\nLeft({leftHandGrabbed})");
-        //Debug.Log($"\nLeft({leftHandGrabbed}) : {leftHandPosition.x}, {leftHandPosition.y}, {leftHandPosition.z}");
-        //Debug.Log($"\nLeft({leftHandGrabbed}) : {user.LeftHand.Position.x}, {user.LeftHand.Position.y}, {user.LeftHand.Position.z}");
-        //Debug.Log($"\nRight({rightHandGrabbed}) : {rightHandPosition.x}, {rightHandPosition.y}, {rightHandPosition.z}");
-    }
     #endregion
     #region Gesture
+    bool readyToRecognize = true;
     void GestureRecognize(){
-        if( user.GestureType != null ) {
-            gestureType = user.GestureType;
-            Debug.Log(gestureType.ToString());
+        if( user.GestureType != null && readyToRecognize) {
+            TriggerEventByGesture(user.GestureType);
+            WaitForNextGesture();
         }
+    }
+    void TriggerEventByGesture(nuitrack.GestureType? gesture){
+        switch(gesture){
+        case nuitrack.GestureType.GestureSwipeLeft:
+            OnSwipeLeft.Invoke();
+            break;
+        case nuitrack.GestureType.GestureSwipeRight:
+            OnSwipeRight.Invoke();
+            break;
+        case nuitrack.GestureType.GestureSwipeUp:
+            OnSwipeUp.Invoke();
+            break;
+        case nuitrack.GestureType.GestureSwipeDown:
+            OnSwipeDown.Invoke();
+            break;
+        case nuitrack.GestureType.GesturePush:
+            OnPush.Invoke();
+            break;
+        default:
+            break;
+        }
+    }
+    async void WaitForNextGesture(){
+        readyToRecognize = false;
+        await UniTask.Delay(TimeSpan.FromSeconds(GestureDelayTime));
+        readyToRecognize = true;
     }
     #endregion
 }
