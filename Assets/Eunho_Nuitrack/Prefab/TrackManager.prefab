@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70526b4b29a68914ab3bbfec3228e262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeJoint: 09000000
+  typeJoint: 090000000f000000
   PrefabJoint: {fileID: 3755680678478219894, guid: 797f4ed3f9b161d4aa7b0449307dca40,
     type: 3}
+  cameraOffset: {x: 0, y: 0, z: -0.3}

@@ -14,48 +14,84 @@ public class TrackManager : MonoBehaviour
         }
         DontDestroyOnLoad(this);
     } 
-    
-    string message = "";
     public nuitrack.JointType[] typeJoint;
     GameObject[] CreatedJoint;
     public GameObject PrefabJoint;
-
+    public Vector3 cameraOffset;
+    UserData user;
+    Vector3 leftHandPosition;
+    Vector3 rightHandPosition;
+    bool leftHandGrabbed;
+    bool rightHandGrabbed;
+    nuitrack.GestureType? gestureType;
+    #region API
+    public Vector3 GetLeftHandPosition(){
+        return leftHandPosition;
+    }
+    public Vector3 GetRightHandPosition(){
+        return rightHandPosition;
+    }
+    #endregion
+    #region Unity Event
     void Start()
     {
+        gameObject.transform.position = Camera.main.gameObject.transform.position - cameraOffset;
         CreatedJoint = new GameObject[typeJoint.Length];
-        for (int q = 0; q < typeJoint.Length; q++)
+        for ( int i = 0; i < typeJoint.Length; i++ )
         {
-            CreatedJoint[q] = Instantiate(PrefabJoint);
-            CreatedJoint[q].transform.SetParent(transform);
+            CreatedJoint[i] = Instantiate(PrefabJoint);
+            CreatedJoint[i].transform.SetParent(transform);
         }
-        message = "Skeleton created";
     }
-
     void Update()
     {
-        if (NuitrackManager.Users.Current != null && NuitrackManager.Users.Current.Skeleton != null)
-        {
-            message = "Skeleton found";
-
-            for (int q = 0; q < typeJoint.Length; q++)
-            {
-                UserData.SkeletonData.Joint joint = NuitrackManager.Users.Current.Skeleton.GetJoint(typeJoint[q]);
-                Vector3 jointPos = joint.Position;
-                jointPos.x *= -1;
-                CreatedJoint[q].transform.localPosition = jointPos;
-            }
+        user = NuitrackManager.Users.Current;
+        if( user != null ) {
+            HandTrack();
+            HandClick();
+            GestureRecognize();
         }
-        else
-        {
-            message = "Skeleton not found";
+        else 
+            Debug.Log("User not found");
+    }
+    #endregion
+    #region HandTrack
+    void HandTrack(){
+        if ( user.Skeleton != null ) {
+            for ( int i = 0; i < typeJoint.Length; i++ )
+                UpdateJoint(i);
+            ShowHandState();
+        }
+        else 
+            Debug.Log("Skeleton not found");
+    }
+    void UpdateJoint(int jointNumber){
+        Vector3 jointPos = FlipRightToLeft(user.Skeleton.GetJoint(typeJoint[jointNumber]).Position);
+        CreatedJoint[jointNumber].transform.localPosition = jointPos;
+        if ( typeJoint[jointNumber] == nuitrack.JointType.LeftHand ) leftHandPosition = jointPos;
+        else if ( typeJoint[jointNumber] == nuitrack.JointType.RightHand ) rightHandPosition = jointPos;
+    }
+    Vector3 FlipRightToLeft(Vector3 objectPosition){
+        objectPosition.x *= -1;
+        return objectPosition;
+    }
+    void HandClick(){
+        if( user.LeftHand != null ) leftHandGrabbed = user.LeftHand.Click;
+        if( user.RightHand != null ) rightHandGrabbed = user.RightHand.Click;
+    }
+    void ShowHandState(){
+        Debug.Log($"\nLeft({leftHandGrabbed})");
+        //Debug.Log($"\nLeft({leftHandGrabbed}) : {leftHandPosition.x}, {leftHandPosition.y}, {leftHandPosition.z}");
+        //Debug.Log($"\nLeft({leftHandGrabbed}) : {user.LeftHand.Position.x}, {user.LeftHand.Position.y}, {user.LeftHand.Position.z}");
+        //Debug.Log($"\nRight({rightHandGrabbed}) : {rightHandPosition.x}, {rightHandPosition.y}, {rightHandPosition.z}");
+    }
+    #endregion
+    #region Gesture
+    void GestureRecognize(){
+        if( user.GestureType != null ) {
+            gestureType = user.GestureType;
+            Debug.Log(gestureType.ToString());
         }
     }
-
-        // Display the message on the screen
-    void OnGUI()
-    {
-        GUI.color = Color.red;
-        GUI.skin.label.fontSize = 50;
-        GUILayout.Label(message);
-    }
+    #endregion
 }
