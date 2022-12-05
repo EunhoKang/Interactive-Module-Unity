@@ -47,3 +47,5 @@ MonoBehaviour:
   TargetObject: {fileID: 0}
   cameraOffset: {x: 0, y: 0, z: -2}
   RPM: 6
+  RotateTick: 0.01
+  EarlyFinishMultiplier: 0.75

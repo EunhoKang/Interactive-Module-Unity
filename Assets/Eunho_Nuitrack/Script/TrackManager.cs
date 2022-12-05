@@ -17,11 +17,11 @@ public class TrackManager : MonoBehaviour
         }
         DontDestroyOnLoad(this);
     } 
-    public nuitrack.JointType[] typeJoint;
-    GameObject[] CreatedJoint;
+    public nuitrack.JointType[] TypeJoint;
     public GameObject PrefabJoint;
-    public Vector3 cameraOffset;
+    public Vector3 CameraOffset;
     public double GestureDelayTime = 0.4f;
+    GameObject[] createdJoint;
     UserData user;
     Vector3 leftHandPosition;
     Vector3 rightHandPosition;
@@ -37,27 +37,28 @@ public class TrackManager : MonoBehaviour
     #region Unity Event
     void Start()
     {
-        gameObject.transform.position = Camera.main.gameObject.transform.position - cameraOffset;
-        CreatedJoint = new GameObject[typeJoint.Length];
-        for ( int i = 0; i < typeJoint.Length; i++ )
+        gameObject.transform.position = Camera.main.gameObject.transform.position - CameraOffset;
+        createdJoint = new GameObject[TypeJoint.Length];
+        for ( int i = 0; i < TypeJoint.Length; i++ )
         {
-            CreatedJoint[i] = Instantiate(PrefabJoint);
-            CreatedJoint[i].transform.SetParent(transform);
+            createdJoint[i] = Instantiate(PrefabJoint);
+            createdJoint[i].transform.SetParent(transform);
         }
     }
     void Update()
     {
         user = NuitrackManager.Users.Current;
         if( user != null ) {
-            HandTrack();
-            HandClick();
-            GestureRecognize();
+            handTrack();
+            handClick();
+            gestureRecognize();
         }
-        else 
-            Debug.Log("User not found");
     }
     #endregion
     #region API
+    public double GetGestureDelayTime(){
+        return GestureDelayTime;
+    }
     public Vector3 GetLeftHandPosition(){
         return leftHandPosition;
     }
@@ -72,35 +73,36 @@ public class TrackManager : MonoBehaviour
     }
     #endregion
     #region HandTrack
-    void HandTrack(){
+    void handTrack(){
         if ( user.Skeleton != null ) {
-            for ( int i = 0; i < typeJoint.Length; i++ )
-                UpdateJoint(i);
+            for ( int i = 0; i < TypeJoint.Length; i++ )
+                updateJoint(i);
         }
         else 
             Debug.Log("Skeleton not found");
     }
-    void UpdateJoint(int jointNumber){
-        Vector3 jointPos = FlipRightToLeft(user.Skeleton.GetJoint(typeJoint[jointNumber]).Position);
-        CreatedJoint[jointNumber].transform.localPosition = jointPos;
-        if ( typeJoint[jointNumber] == nuitrack.JointType.LeftHand ) leftHandPosition = jointPos;
-        else if ( typeJoint[jointNumber] == nuitrack.JointType.RightHand ) rightHandPosition = jointPos;
+    void updateJoint(int jointNumber){
+        Vector3 jointPos = flipRightToLeft(user.Skeleton.GetJoint(TypeJoint[jointNumber]).Position);
+        createdJoint[jointNumber].transform.localPosition = jointPos;
+        if ( TypeJoint[jointNumber] == nuitrack.JointType.LeftHand ) leftHandPosition = jointPos;
+        else if ( TypeJoint[jointNumber] == nuitrack.JointType.RightHand ) rightHandPosition = jointPos;
     }
-    Vector3 FlipRightToLeft(Vector3 objectPosition){
+    Vector3 flipRightToLeft(Vector3 objectPosition){
         objectPosition.x *= -1;
         return objectPosition;
     }
-    void HandClick(){
+    void handClick(){
         if( user.LeftHand != null ) leftHandGrabbed = user.LeftHand.Click;
         if( user.RightHand != null ) rightHandGrabbed = user.RightHand.Click;
     }
     #endregion
     #region Gesture
     bool readyToRecognize = true;
-    void GestureRecognize(){
+    void gestureRecognize(){
         if( user.GestureType != null && readyToRecognize) {
             TriggerEventByGesture(user.GestureType);
-            WaitForNextGesture();
+            if(user.GestureType != nuitrack.GestureType.GestureWaving)
+                waitForNextGesture();
         }
     }
     void TriggerEventByGesture(nuitrack.GestureType? gesture){
@@ -124,7 +126,7 @@ public class TrackManager : MonoBehaviour
             break;
         }
     }
-    async void WaitForNextGesture(){
+    async void waitForNextGesture(){
         readyToRecognize = false;
         await UniTask.Delay(TimeSpan.FromSeconds(GestureDelayTime));
         readyToRecognize = true;

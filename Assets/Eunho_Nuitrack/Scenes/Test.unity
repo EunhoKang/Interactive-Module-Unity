@@ -418,7 +418,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 449316, guid: e999ace05c586574fa1b964016f28531, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 449316, guid: e999ace05c586574fa1b964016f28531, type: 3}
       propertyPath: m_LocalPosition.x
@@ -462,7 +462,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11436578, guid: e999ace05c586574fa1b964016f28531, type: 3}
       propertyPath: colorModuleOn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e999ace05c586574fa1b964016f28531, type: 3}
@@ -641,13 +641,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5423385742310130496, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
         type: 3}
-      propertyPath: OnSwipeLeft.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5423385742310130496, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
-        type: 3}
-      propertyPath: OnSwipeLeft.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 4
+      propertyPath: GestureDelayTime
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5423385742310130496, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
         type: 3}
@@ -656,19 +651,9 @@ PrefabInstance:
       objectReference: {fileID: 971444959928363665}
     - target: {fileID: 5423385742310130496, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
         type: 3}
-      propertyPath: OnSwipeLeft.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5423385742310130496, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
-        type: 3}
-      propertyPath: OnSwipeLeft.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: TurnLeft
-      objectReference: {fileID: 0}
-    - target: {fileID: 5423385742310130496, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
-        type: 3}
-      propertyPath: OnSwipeLeft.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ModuleManager, Assembly-CSharp
-      objectReference: {fileID: 0}
+      propertyPath: OnSwipeRight.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 971444959928363665}
     - target: {fileID: 5423385742310130496, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
         type: 3}
       propertyPath: OnSwipeLeft.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
@@ -676,13 +661,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5423385742310130496, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
         type: 3}
-      propertyPath: OnSwipeLeft.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      propertyPath: OnSwipeRight.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 6006994405333603901, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6006994405333603901, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
         type: 3}
