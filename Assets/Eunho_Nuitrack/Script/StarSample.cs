@@ -6,10 +6,10 @@ public class StarSample : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"{gameObject.name} Entered");
+        //Debug.Log($"{gameObject.name} Entered");
     }
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log($"{gameObject.name} Exited");
+        //Debug.Log($"{gameObject.name} Exited");
     }
 }

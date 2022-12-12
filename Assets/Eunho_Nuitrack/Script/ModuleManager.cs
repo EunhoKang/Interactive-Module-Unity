@@ -9,7 +9,7 @@ public class ModuleManager : MonoBehaviour
     public GameObject TargetObject;
     public Vector3 cameraOffset;
     public float RPM = 6;
-    public double RotateTick = 0.01f;
+    public int RotateTickCount = 250;
     float currentAngle = 0;
     #region Unity Event
     void Start()
@@ -30,11 +30,18 @@ public class ModuleManager : MonoBehaviour
         double spinPerSecond = RPM / 60;
         double rotateDelayTime = spinAngle / spinPerSecond;
         double rotateTime = rotateDelayTime < gestureDelayTime ? rotateDelayTime : gestureDelayTime;
+        double rotateTick = rotateTime / (float)RotateTickCount;
         waitForNextTurn(rotateTime);
-        for(double i = RotateTick; i <= rotateTime; i += RotateTick){
+        for(double i = rotateTick; i <= rotateTime; i += rotateTick){
             currentAngle = Mathf.Lerp(startAngle, endAngle, (float)(i / rotateTime));
             TargetObject.transform.rotation = Quaternion.Euler(0, currentAngle, 0);
-            await UniTask.Delay(TimeSpan.FromSeconds(RotateTick));
+            
+            if(endAngle > startAngle)
+                ArduinoManager.Instance.SpinClockwise();
+            else 
+                ArduinoManager.Instance.SpinCounterClockwise();
+            
+            await UniTask.Delay(TimeSpan.FromSeconds(rotateTick));
         }
     }
     async void waitForNextTurn(double delayTime){
