@@ -552,11 +552,6 @@ PrefabInstance:
       propertyPath: TargetObject
       value: 
       objectReference: {fileID: 5487333530284177936}
-    - target: {fileID: 441219036146633132, guid: 41d98f93dd97e9648a241c86038c1637,
-        type: 3}
-      propertyPath: RotateTickCount
-      value: 250
-      objectReference: {fileID: 0}
     - target: {fileID: 5779733539644235140, guid: 41d98f93dd97e9648a241c86038c1637,
         type: 3}
       propertyPath: m_RootOrder
