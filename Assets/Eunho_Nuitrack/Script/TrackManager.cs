@@ -28,6 +28,8 @@ public class TrackManager : MonoBehaviour
     bool rightHandGrabbed;
     string trackedObjectByLeftHand = "none";
     string trackedObjectByRightHand = "none";
+    //타겟 별자리
+    //타겟 별
     #region Tracking Event
     public UnityEvent OnSwipeLeft;
     public UnityEvent OnSwipeRight;
