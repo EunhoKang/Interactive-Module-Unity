@@ -23,17 +23,16 @@ public class ModuleManager : MonoBehaviour
         rotateModule(currentAngle, currentAngle + eulerAngle);
     }
     #endregion
-    bool readyToTurn = true;
+    bool notReadyToTurn = false;
     async void rotateModule(float startAngle, float endAngle){
-        double gestureDelayTime = TrackManager.Instance.GetGestureDelayTime();
+        if( notReadyToTurn ) return;
         double spinAngle = Mathf.Abs(endAngle - startAngle) / 360 ;
         double spinPerSecond = RPM / 60;
         double rotateDelayTime = spinAngle / spinPerSecond;
-        double rotateTime = rotateDelayTime < gestureDelayTime ? rotateDelayTime : gestureDelayTime;
-        double rotateTick = rotateTime / (float)RotateTickCount;
-        waitForNextTurn(rotateTime);
-        for(double i = rotateTick; i <= rotateTime; i += rotateTick){
-            currentAngle = Mathf.Lerp(startAngle, endAngle, (float)(i / rotateTime));
+        double rotateTick = rotateDelayTime / (float)RotateTickCount;
+        waitForNextTurn(rotateDelayTime);
+        for(double i = rotateTick; i <= rotateDelayTime; i += rotateTick){
+            currentAngle = Mathf.Lerp(startAngle, endAngle, (float)(i / rotateDelayTime));
             TargetObject.transform.rotation = Quaternion.Euler(0, currentAngle, 0);
             
             if(endAngle > startAngle)
@@ -45,8 +44,8 @@ public class ModuleManager : MonoBehaviour
         }
     }
     async void waitForNextTurn(double delayTime){
-        readyToTurn = false;
+        notReadyToTurn = true;
         await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
-        readyToTurn = true;
+        notReadyToTurn = false;
     }
 }

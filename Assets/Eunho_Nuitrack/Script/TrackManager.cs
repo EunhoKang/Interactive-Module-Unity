@@ -20,18 +20,22 @@ public class TrackManager : MonoBehaviour
     public nuitrack.JointType[] TypeJoint;
     public GameObject PrefabJoint;
     public Vector3 CameraOffset;
-    public double GestureDelayTime = 0.4f;
     GameObject[] createdJoint;
     UserData user;
     Vector3 leftHandPosition;
     Vector3 rightHandPosition;
     bool leftHandGrabbed;
     bool rightHandGrabbed;
+    string trackedObjectByLeftHand = "none";
+    string trackedObjectByRightHand = "none";
     #region Tracking Event
     public UnityEvent OnSwipeLeft;
     public UnityEvent OnSwipeRight;
-    public UnityEvent OnSwipeUp;
-    public UnityEvent OnSwipeDown;
+    public UnityEvent OnSwipeUpWithGrab;
+    public UnityEvent OnSwipeUpWithoutGrab;
+    public UnityEvent OnSwipeDownWithGrab;
+    public UnityEvent OnSwipeDownWithoutGrab;
+    public UnityEvent OnCollideWithStar;
     public UnityEvent OnPush;
     #endregion
     #region Unity Event
@@ -50,15 +54,13 @@ public class TrackManager : MonoBehaviour
         user = NuitrackManager.Users.Current;
         if( user != null ) {
             handTrack();
+            raycastByHand();
             handClick();
             gestureRecognize();
         }
     }
     #endregion
     #region API
-    public double GetGestureDelayTime(){
-        return GestureDelayTime;
-    }
     public Vector3 GetLeftHandPosition(){
         return leftHandPosition;
     }
@@ -70,6 +72,12 @@ public class TrackManager : MonoBehaviour
     }
     public bool GetRightHandGrabbed(){
         return rightHandGrabbed;
+    }
+    public string GetLeftHandGrabbedObject(){
+        return trackedObjectByLeftHand;
+    }
+    public string GetRightHandGrabbedObject(){
+        return trackedObjectByRightHand;
     }
     #endregion
     #region HandTrack
@@ -96,13 +104,30 @@ public class TrackManager : MonoBehaviour
         if( user.RightHand != null ) rightHandGrabbed = user.RightHand.Click;
     }
     #endregion
+    #region Raycast
+    void raycastByHand() {
+        RaycastHit leftHit;
+        if (Physics.Raycast(leftHandPosition, transform.forward, out leftHit)) {
+            if( leftHandGrabbed ) trackedObjectByLeftHand = leftHit.collider.name;
+            OnCollideWithStar.Invoke();
+        }
+        else
+            if( !leftHandGrabbed ) trackedObjectByLeftHand = "none";
+        
+        RaycastHit rightHit;
+        if (Physics.Raycast(rightHandPosition, transform.forward, out rightHit)) {
+            if( rightHandGrabbed ) trackedObjectByRightHand = rightHit.collider.name;
+            OnCollideWithStar.Invoke();
+        }
+        else
+            if( !rightHandGrabbed ) trackedObjectByRightHand = "none";
+    }
+    #endregion
     #region Gesture
     bool readyToRecognize = true;
     void gestureRecognize(){
         if( user.GestureType != null && readyToRecognize) {
             TriggerEventByGesture(user.GestureType);
-            if(user.GestureType != nuitrack.GestureType.GestureWaving)
-                waitForNextGesture();
         }
     }
     void TriggerEventByGesture(nuitrack.GestureType? gesture){
@@ -114,10 +139,16 @@ public class TrackManager : MonoBehaviour
             OnSwipeRight.Invoke();
             break;
         case nuitrack.GestureType.GestureSwipeUp:
-            OnSwipeUp.Invoke();
+            if( leftHandGrabbed || rightHandGrabbed )
+                OnSwipeUpWithGrab.Invoke();
+            else
+                OnSwipeUpWithoutGrab.Invoke();
             break;
         case nuitrack.GestureType.GestureSwipeDown:
-            OnSwipeDown.Invoke();
+            if( leftHandGrabbed || rightHandGrabbed )
+                OnSwipeDownWithGrab.Invoke();
+            else
+                OnSwipeDownWithoutGrab.Invoke();
             break;
         case nuitrack.GestureType.GesturePush:
             OnPush.Invoke();
@@ -125,11 +156,6 @@ public class TrackManager : MonoBehaviour
         default:
             break;
         }
-    }
-    async void waitForNextGesture(){
-        readyToRecognize = false;
-        await UniTask.Delay(TimeSpan.FromSeconds(GestureDelayTime));
-        readyToRecognize = true;
     }
     #endregion
 }

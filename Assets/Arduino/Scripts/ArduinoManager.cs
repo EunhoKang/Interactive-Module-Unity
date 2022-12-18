@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO.Ports;
+using System.IO;
 
 public class ArduinoManager : MonoBehaviour
 {
@@ -20,73 +21,72 @@ public class ArduinoManager : MonoBehaviour
     public int DataBits = 8;
     #endregion
 
-    private SerialPort sp;
+    private SerialPortUnit serialPortUnit;
     string writng = "s";
     #region Unity Event
     void Start()
     {
-        sp = new SerialPort();
-        sp.PortName = PortName;     // 여기에는 아두이노 포트 넣어주면 됩니다.
-        sp.BaudRate = BaudRate;      // 아두이노 보레이트랑 맞춰주시면 됩니다.
-        sp.DataBits = DataBits;
-        sp.Parity = Parity.None;
-        sp.StopBits = StopBits.One;
-        sp.Open();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        /*
-        switch (Input.inputString)
-        {
-            case "W":
-            case "w":
-                Debug.Log("press w");
-                sp.WriteLine("w");
-                writng = "w";
-                break;
-
-            case "A":
-            case "a":
-              Debug.Log("press a");
-                sp.WriteLine("a");
-                writng = "a";
-                break;
-
-            case "S":
-            case "s":
-                Debug.Log("press s");
-                sp.WriteLine("s");
-                writng = "s";
-                break;
-
-            case "D":
-            case "d":
-                Debug.Log("press d");
-                sp.WriteLine("d");
-                writng = "d";
-                break;
-
-        }
-
-        sp.WriteLine(writng);
-        */
+        serialPortUnit = new SerialPortUnit(PortName, BaudRate, DataBits);
     }
     void OnApplicationQuit()
     {
-        sp.Close();    //꺼질때 소켓을 닫아줍니다.
+        serialPortUnit.ClosePort();
     }
     #endregion
     #region Arduino Serial
     public void SpinClockwise(){
-        sp.WriteLine("q");
+        serialPortUnit.WriteLine("q");
     }
     public void SpinCounterClockwise(){
-        sp.WriteLine("e");
+        serialPortUnit.WriteLine("e");
     }
     public void StopSpinning(){
-        sp.WriteLine("n");
+        serialPortUnit.WriteLine("n");
     }
     #endregion
+}
+
+public class SerialPortUnit {
+    private SerialPort serialPort;
+    private string portName; 
+    private int baudRate; 
+    private int dataBits;
+    private bool isPortOpen;
+    public SerialPortUnit(){
+        this.portName = "COM8";
+        this.baudRate = 115200;
+        this.dataBits = 8;
+        isPortOpen = false;
+        initializePort();
+    }
+    public SerialPortUnit(string portName, int baudRate, int dataBits){
+        this.portName = portName;
+        this.baudRate = baudRate;
+        this.dataBits = dataBits;
+        isPortOpen = false;
+        initializePort();
+    }
+    private void initializePort() {
+        try {
+            serialPort = new SerialPort();
+            serialPort.PortName = portName;
+            serialPort.BaudRate = baudRate;
+            serialPort.DataBits = dataBits;
+            serialPort.Parity = Parity.None;
+            serialPort.StopBits = StopBits.One;
+            serialPort.Open();
+            isPortOpen = true;
+        }
+        catch ( IOException IOException ) {
+            Debug.LogError($"Arduino not linked : {IOException}");
+            isPortOpen = false;
+        }
+    }
+    public void WriteLine(string line){
+        if(isPortOpen)
+            serialPort.WriteLine(line);
+    }
+    public void ClosePort(){
+        serialPort.Close();
+    }
 }

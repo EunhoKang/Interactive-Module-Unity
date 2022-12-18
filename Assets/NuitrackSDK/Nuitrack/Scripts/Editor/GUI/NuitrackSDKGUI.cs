@@ -400,7 +400,7 @@ namespace NuitrackSDKEditor
 
                 Rect rect = EditorGUILayout.GetControlRect(false, height);
 
-                GUI.DrawTexture(rect, texture);
+                if (texture != null) GUI.DrawTexture(rect, texture);
 
                 return rect;
             }
