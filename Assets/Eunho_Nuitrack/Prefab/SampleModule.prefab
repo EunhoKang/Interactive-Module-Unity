@@ -69,7 +69,8 @@ MonoBehaviour:
   - {fileID: 4073027535895556876}
   - {fileID: 7628268455557142214}
   EnlargeTransform: {fileID: 2459718864765392964}
-  cityLightEffect: {fileID: 5548048363603983002}
+  cityLightEffect: {fileID: 4213332064836246577}
+  streetLightEffect: {fileID: 5314249112387426718}
 --- !u!1001 &5465736443233070150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -136,6 +137,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7636028060944004098, guid: e197b93b7f9ae4e40b6343539c691a96,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e197b93b7f9ae4e40b6343539c691a96, type: 3}
@@ -235,6 +241,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd82d56f78e54b94b804091b01b8ba9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!23 &4213332064836246577 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8188372495242604663, guid: e197b93b7f9ae4e40b6343539c691a96,
+    type: 3}
+  m_PrefabInstance: {fileID: 5465736443233070150}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4271753822916836299 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8111654928068351885, guid: e197b93b7f9ae4e40b6343539c691a96,
@@ -247,9 +259,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd82d56f78e54b94b804091b01b8ba9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &5548048363603983002 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 514697617664186076, guid: e197b93b7f9ae4e40b6343539c691a96,
+--- !u!23 &5314249112387426718 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 151489884238509528, guid: e197b93b7f9ae4e40b6343539c691a96,
     type: 3}
   m_PrefabInstance: {fileID: 5465736443233070150}
   m_PrefabAsset: {fileID: 0}

@@ -10,6 +10,7 @@ public class StarGate : MonoBehaviour
     public int RotateTickCount = 250;
     float currentAngle = 0;
     int currentLayer = 0;
+    Vector3 vectorFront;
     private bool isEnlargementMode;
     private ZodiacSign enlargedZodiacSign;
     private List<ZodiacSign>[] zodiacSigns= new List<ZodiacSign>[4];
@@ -22,11 +23,13 @@ public class StarGate : MonoBehaviour
     public Transform EnlargeTransform;
     #endregion
     #region Effects
-    public GameObject cityLightEffect;
+    public MeshRenderer cityLightEffect;
+    public MeshRenderer streetLightEffect;
     #endregion
     #region Unity Events
     void Start(){
-        transform.position = Camera.main.gameObject.transform.position - cameraOffset;
+        //transform.position = Camera.main.gameObject.transform.position - cameraOffset;
+        vectorFront = transform.forward;
         isEnlargementMode = false;
         zodiacSigns[3] = SpringZodiacSigns;
         zodiacSigns[2] = SummerZodiacSigns;
@@ -40,7 +43,8 @@ public class StarGate : MonoBehaviour
         bool leftHandGrabbed = TrackManager.Instance.GetLeftHandGrabbed();
         if( ! leftHandGrabbed ) {
             RaycastHit leftHit;
-            if ( Physics.Raycast( leftHandPosition, transform.forward, out leftHit, Mathf.Infinity, 1 << getLayer() ) ) {
+            int layerMask = 1 << getLayer();
+            if ( Physics.Raycast( leftHandPosition, vectorFront, out leftHit, Mathf.Infinity, layerMask) ) {
                 ZodiacSign hittedZodiacSign = leftHit.collider.gameObject.GetComponent<ZodiacSign>();
                 if( hittedZodiacSign != null ) {
                     targetZodiacSigns[0] = hittedZodiacSign;
@@ -55,17 +59,15 @@ public class StarGate : MonoBehaviour
         bool rightHandGrabbed = TrackManager.Instance.GetRightHandGrabbed();
         if( ! rightHandGrabbed ) {
             RaycastHit rightHit;
-            if ( Physics.Raycast( rightHandPosition, transform.forward, out rightHit, Mathf.Infinity, 1 << getLayer() ) ) {
+            int layerMask = 1 << getLayer();
+            if ( Physics.Raycast( rightHandPosition, vectorFront, out rightHit, Mathf.Infinity, layerMask ) ) {
                 ZodiacSign hittedZodiacSign = rightHit.collider.gameObject.GetComponent<ZodiacSign>();
                 if( hittedZodiacSign != null ) {
                     targetZodiacSigns[1] = hittedZodiacSign;
-                    Debug.Log(hittedZodiacSign.name);
                     leastOneHitted = true;
                 }
-                else{
-                    Debug.DrawLine(rightHandPosition, transform.forward, Color.blue, 1000);
+                else
                     targetZodiacSigns[1] = null;
-                }
             }
         }
 
@@ -107,11 +109,13 @@ public class StarGate : MonoBehaviour
     }
     public void SetCityLightTrue()
     {
-        cityLightEffect.SetActive(true);
+        cityLightEffect.material.EnableKeyword("_EMISSION");
+        streetLightEffect.material.EnableKeyword("_EMISSION");
     }
     public void SetCityLightFalse()
     {
-        cityLightEffect.SetActive(false);
+        cityLightEffect.material.DisableKeyword("_EMISSION");
+        streetLightEffect.material.DisableKeyword("_EMISSION");
     }
     #endregion
     bool notReadyToTurn = false;
@@ -135,6 +139,7 @@ public class StarGate : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, currentAngle, 0);
             await UniTask.Delay(TimeSpan.FromSeconds(rotateTick));
         }
+        targetZodiacSigns[0] = targetZodiacSigns[1] = null;
     }
     async void waitForNextTurn(double delayTime){
         notReadyToTurn = true;
