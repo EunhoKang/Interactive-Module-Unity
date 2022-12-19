@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36975f268f6610d42995296883e37776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PortName: COM8
+  BaudRate: 9600
+  DataBits: 8

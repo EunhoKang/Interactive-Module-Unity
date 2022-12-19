@@ -26,10 +26,8 @@ public class TrackManager : MonoBehaviour
     Vector3 rightHandPosition;
     bool leftHandGrabbed;
     bool rightHandGrabbed;
-    string trackedObjectByLeftHand = "none";
-    string trackedObjectByRightHand = "none";
-    //타겟 별자리
-    //타겟 별
+    bool leftFirstGrabbed;
+    ZodiacSign[] targetZodiacSigns = new ZodiacSign[2];
     #region Tracking Event
     public UnityEvent OnSwipeLeft;
     public UnityEvent OnSwipeRight;
@@ -56,13 +54,20 @@ public class TrackManager : MonoBehaviour
         user = NuitrackManager.Users.Current;
         if( user != null ) {
             handTrack();
-            raycastByHand();
+            raycastToEmphasize();
             handClick();
             gestureRecognize();
         }
     }
     #endregion
     #region API
+    public ZodiacSign[] GetTargetZodiacSigns(){
+        return targetZodiacSigns;
+    }
+    public ZodiacSign GetTargetZodiacSign(){
+        if( leftHandGrabbed && rightHandGrabbed ) return targetZodiacSigns[ leftFirstGrabbed ? 0 : 1 ];
+        else return targetZodiacSigns[ leftHandGrabbed ? 0 : 1 ];
+    }
     public Vector3 GetLeftHandPosition(){
         return leftHandPosition;
     }
@@ -74,12 +79,6 @@ public class TrackManager : MonoBehaviour
     }
     public bool GetRightHandGrabbed(){
         return rightHandGrabbed;
-    }
-    public string GetLeftHandGrabbedObject(){
-        return trackedObjectByLeftHand;
-    }
-    public string GetRightHandGrabbedObject(){
-        return trackedObjectByRightHand;
     }
     #endregion
     #region HandTrack
@@ -102,27 +101,45 @@ public class TrackManager : MonoBehaviour
         return objectPosition;
     }
     void handClick(){
-        if( user.LeftHand != null ) leftHandGrabbed = user.LeftHand.Click;
-        if( user.RightHand != null ) rightHandGrabbed = user.RightHand.Click;
+        if( user.LeftHand != null ) 
+            leftHandGrabbed = user.LeftHand.Click;
+        if( user.RightHand != null )
+            rightHandGrabbed = user.RightHand.Click;
+        if( leftHandGrabbed && !rightHandGrabbed ) leftFirstGrabbed = true;
+        if( !leftHandGrabbed ) leftFirstGrabbed = false;
     }
     #endregion
     #region Raycast
-    void raycastByHand() {
-        RaycastHit leftHit;
-        if (Physics.Raycast(leftHandPosition, transform.forward, out leftHit)) {
-            if( leftHandGrabbed ) trackedObjectByLeftHand = leftHit.collider.name;
-            OnCollideWithStar.Invoke();
-        }
-        else
-            if( !leftHandGrabbed ) trackedObjectByLeftHand = "none";
+    void raycastToEmphasize() {
+        bool leastOneHitted= false;
         
-        RaycastHit rightHit;
-        if (Physics.Raycast(rightHandPosition, transform.forward, out rightHit)) {
-            if( rightHandGrabbed ) trackedObjectByRightHand = rightHit.collider.name;
-            OnCollideWithStar.Invoke();
+        if( ! leftHandGrabbed ) {
+            RaycastHit leftHit;
+            if ( Physics.Raycast( leftHandPosition, transform.forward, out leftHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Star") ) ) {
+                Star hittedStar = leftHit.collider.gameObject.GetComponent<Star>();
+                if( hittedStar != null ) {
+                    targetZodiacSigns[0] = hittedStar.GetParentZodiacSign();
+                    leastOneHitted = true;
+                }
+            }
+            else
+                targetZodiacSigns[0] = null;
         }
-        else
-            if( !rightHandGrabbed ) trackedObjectByRightHand = "none";
+        
+        if( ! rightHandGrabbed ) {
+            RaycastHit rightHit;
+            if ( Physics.Raycast( rightHandPosition, transform.forward, out rightHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Star") ) ) {
+                Star hittedStar = rightHit.collider.gameObject.GetComponent<Star>();
+                if( hittedStar != null ) {
+                    targetZodiacSigns[1] = hittedStar.GetParentZodiacSign();
+                    leastOneHitted = true;
+                }
+                else 
+                    targetZodiacSigns[1] = null;
+            }
+        }
+
+        if( leastOneHitted ) OnCollideWithStar.Invoke();
     }
     #endregion
     #region Gesture
@@ -141,16 +158,22 @@ public class TrackManager : MonoBehaviour
             OnSwipeRight.Invoke();
             break;
         case nuitrack.GestureType.GestureSwipeUp:
-            if( leftHandGrabbed || rightHandGrabbed )
+            if( ( leftHandGrabbed && targetZodiacSigns[0] != null ) || ( rightHandGrabbed && targetZodiacSigns[1] != null ) ) {
                 OnSwipeUpWithGrab.Invoke();
-            else
+                Debug.Log("Swipe up");
+            }
+            else{
                 OnSwipeUpWithoutGrab.Invoke();
+            }
             break;
         case nuitrack.GestureType.GestureSwipeDown:
-            if( leftHandGrabbed || rightHandGrabbed )
+            if( ( leftHandGrabbed && targetZodiacSigns[0] != null ) || ( rightHandGrabbed && targetZodiacSigns[1] != null ) ) {
                 OnSwipeDownWithGrab.Invoke();
-            else
+                Debug.Log("Swipe down");
+            }
+            else{
                 OnSwipeDownWithoutGrab.Invoke();
+            }
             break;
         case nuitrack.GestureType.GesturePush:
             OnPush.Invoke();

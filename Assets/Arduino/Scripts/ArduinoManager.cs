@@ -28,6 +28,12 @@ public class ArduinoManager : MonoBehaviour
     {
         serialPortUnit = new SerialPortUnit(PortName, BaudRate, DataBits);
     }
+    /*
+    void Update(){
+        if(Input.GetKeyDown("q")) SpinClockwise();
+        if(Input.GetKeyDown("e")) SpinCounterClockwise();
+    }
+    */
     void OnApplicationQuit()
     {
         serialPortUnit.ClosePort();
@@ -35,10 +41,10 @@ public class ArduinoManager : MonoBehaviour
     #endregion
     #region Arduino Serial
     public void SpinClockwise(){
-        serialPortUnit.WriteLine("q");
+        serialPortUnit.WriteLine("a");
     }
     public void SpinCounterClockwise(){
-        serialPortUnit.WriteLine("e");
+        serialPortUnit.WriteLine("d");
     }
     public void StopSpinning(){
         serialPortUnit.WriteLine("n");

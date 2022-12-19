@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Hand
+  - Star
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Star
   - Water
   - UI
   - 
