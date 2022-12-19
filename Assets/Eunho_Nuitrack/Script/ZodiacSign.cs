@@ -7,14 +7,8 @@ public class ZodiacSign : MonoBehaviour
 {
     public string ZodiacSignName;
     public GameObject Glow;
-    public List<Star> Stars;
     private Vector3 lastPosition;
     private Vector3 lastScale;
-    public void InitializeStars(){
-        foreach(var star in Stars){
-            star.SetParentZodiacSign(this);
-        }
-    }
     public void Emphasize(){
         Glow.SetActive(true);
     }

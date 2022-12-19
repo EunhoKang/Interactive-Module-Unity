@@ -52,7 +52,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ModuleManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: StarGate, Assembly-CSharp
         m_MethodName: TurnModule
         m_Mode: 4
         m_Arguments:
@@ -67,7 +67,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ModuleManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: StarGate, Assembly-CSharp
         m_MethodName: TurnModule
         m_Mode: 4
         m_Arguments:
@@ -108,18 +108,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: StarGate, Assembly-CSharp
-        m_MethodName: ReductZodiacSign
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   OnSwipeDownWithGrab:
     m_PersistentCalls:
       m_Calls:
@@ -140,6 +128,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StarGate, Assembly-CSharp
+        m_MethodName: ReductZodiacSign
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: StarGate, Assembly-CSharp
         m_MethodName: SetCityLightFalse
         m_Mode: 1
         m_Arguments:
@@ -150,21 +150,3 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnCollideWithStar:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: StarGate, Assembly-CSharp
-        m_MethodName: EmphasizeStar
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnPush:
-    m_PersistentCalls:
-      m_Calls: []

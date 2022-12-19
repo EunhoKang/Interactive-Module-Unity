@@ -693,7 +693,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7480169427399723694}
-  - component: {fileID: 6677195589991685722}
   m_Layer: 0
   m_Name: Gates
   m_TagString: Untagged
@@ -723,35 +722,14 @@ Transform:
   - {fileID: 7731491598269178164}
   - {fileID: 7731491597527350533}
   - {fileID: 7836685394058281299}
+  - {fileID: 8662968767717242497}
   - {fileID: 7731491598517062040}
   - {fileID: 7731491598988284681}
-  - {fileID: 4791972594186662299}
-  - {fileID: 8662968767717242497}
   - {fileID: 8236087269474132765}
+  - {fileID: 4791972594186662299}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6677195589991685722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 918704301806106170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc7b6402da48d6d48af613ad8570c911, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sheep: {fileID: 7460968649535675369}
-  SpringZodiacSigns: []
-  SummerZodiacSigns:
-  - {fileID: 6896723717601307213}
-  AutumnZodiacSigns: []
-  WinterZodiacSigns: []
-  EnlargeTransform: {fileID: 7636028060944004098}
-  cityLightEffect: {fileID: 8795318685457311316}
-  explodeEffect: {fileID: 8236087269473792347}
 --- !u!1 &971688056030264113
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,7 +858,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7480169427399723694}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1893718299214199157
 MonoBehaviour:
@@ -2021,8 +1999,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4450685114321416892}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.04, y: 7.18, z: -1.9700003}
-  m_LocalScale: {x: 2.0472813, y: 2.0472813, z: 2.0472813}
+  m_LocalPosition: {x: 0, y: 5, z: -2.5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7480169427399723694}
@@ -18433,13 +18411,13 @@ GameObject:
   - component: {fileID: 7731491598517062042}
   - component: {fileID: 7731491598517062053}
   - component: {fileID: 7731491598517062052}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Sphere (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7731491598517062040
 Transform:
   m_ObjectHideFlags: 0
@@ -18453,7 +18431,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7480169427399723694}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7731491598517062043
 MeshFilter:
@@ -18548,7 +18526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7731491598988284681
 Transform:
   m_ObjectHideFlags: 0
@@ -18570,7 +18548,7 @@ Transform:
   - {fileID: 7731491597487616637}
   - {fileID: 7731491597829693593}
   m_Father: {fileID: 7480169427399723694}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7768711327911606989
 GameObject:
@@ -19387,7 +19365,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7480169427399723694}
-  m_RootOrder: 13
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2875494978941793948
 MeshFilter:
@@ -19804,9 +19782,9 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 40.623745, y: 21.14089, z: 54.3884}
-  m_Center: {x: 4.986753, y: -4.620766, z: -13.844302}
---- !u!114 &4334317434455829353
+  m_Size: {x: 40.623745, y: 57.452644, z: 62.931965}
+  m_Center: {x: 4.9867535, y: -4.958991, z: -18.116062}
+--- !u!114 &216797484385147944
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -19815,9 +19793,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1875578359761937200}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b10c3bbe874facc46a1e4b4ca10bd1a7, type: 3}
+  m_Script: {fileID: 11500000, guid: dd82d56f78e54b94b804091b01b8ba9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ZodiacSignName: 111
+  Glow: {fileID: 6377372827722681631}
 --- !u!114 &7731491598178834872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19833,28 +19813,6 @@ MonoBehaviour:
   Glow: {fileID: 2100000, guid: a5e4a9f8e88d09841994b9b8d6379d8e, type: 2}
   NonGlow: {fileID: 2100000, guid: 22100606866e0814eab574a90b874cc7, type: 2}
   IsGlowing: 1
---- !u!1 &7460968649535675369 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 303da8213863e3143ab98fa4fb073e4d,
-    type: 3}
-  m_PrefabInstance: {fileID: 7731491597684795064}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6896723717601307213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7460968649535675369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd82d56f78e54b94b804091b01b8ba9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ZodiacSignName: 111
-  Glow: {fileID: 6377372827722681631}
-  Stars:
-  - {fileID: 4334317434455829353}
 --- !u!4 &7836685394058281299 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 303da8213863e3143ab98fa4fb073e4d,
@@ -19878,7 +19836,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 470718, guid: 2bdc186a2c521f1488fe14cb4a745323, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 470718, guid: 2bdc186a2c521f1488fe14cb4a745323, type: 3}
       propertyPath: m_LocalScale.x
@@ -19934,12 +19892,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bdc186a2c521f1488fe14cb4a745323, type: 3}
---- !u!1 &8236087269473792347 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 163064, guid: 2bdc186a2c521f1488fe14cb4a745323,
-    type: 3}
-  m_PrefabInstance: {fileID: 8236087269473668515}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8236087269474132765 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 470718, guid: 2bdc186a2c521f1488fe14cb4a745323,
