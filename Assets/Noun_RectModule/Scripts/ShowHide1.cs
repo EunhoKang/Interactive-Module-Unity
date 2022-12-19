@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class ShowHide1 : MonoBehaviour
 {
-    public GameObject sheep;
-    public GameObject light1;
+    public GameObject star;
     public GameObject explode2;
 
     // Update is called once per frame
@@ -18,37 +17,25 @@ public class ShowHide1 : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            SetSheepTrue();
+            SetStarTrue();
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
-            sheep.SetActive(false);
+            SetStarFalse();
         }
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            explode2.SetActive(true);
-        }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            explode2.SetActive(false);
-        }
-
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            light1.SetActive(true);
-        }
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            light1.SetActive(false);
-        }
-
     }
 
-    public void SetSheepTrue()
+    public void SetStarTrue()
     {
-        sheep.SetActive(true);
+        star.SetActive(true);
+        explode2.SetActive(false);
     }
+
+    public void SetStarFalse()
+    {
+        star.SetActive(false);
+        explode2.SetActive(true);
+    }
+
 }

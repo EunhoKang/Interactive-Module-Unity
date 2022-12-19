@@ -6,14 +6,14 @@ using DG.Tweening;
 public class ZodiacSign : MonoBehaviour
 {
     public string ZodiacSignName;
-    public GameObject Glow;
+    public MeshRenderer Glow;
     private Vector3 lastPosition;
     private Vector3 lastScale;
     public void Emphasize(){
-        Glow.SetActive(true);
+        Glow.material.EnableKeyword("_EMISSION");
     }
     public void Unemphasize(){
-        Glow.SetActive(false);
+        Glow.material.DisableKeyword("_EMISSION");
     }
     public void Enlarge(Transform enlargedTransform){
         lastPosition = gameObject.transform.position;

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -10,6 +9,7 @@ public class StarGate : MonoBehaviour
     public float RPM = 6;
     public int RotateTickCount = 250;
     float currentAngle = 0;
+    int currentLayer = 0;
     private bool isEnlargementMode;
     private ZodiacSign enlargedZodiacSign;
     private List<ZodiacSign>[] zodiacSigns= new List<ZodiacSign>[4];
@@ -28,15 +28,11 @@ public class StarGate : MonoBehaviour
     void Start(){
         transform.position = Camera.main.gameObject.transform.position - cameraOffset;
         isEnlargementMode = false;
-        zodiacSigns[0] = SpringZodiacSigns;
-        zodiacSigns[1] = SummerZodiacSigns;
-        zodiacSigns[2] = AutumnZodiacSigns;
-        zodiacSigns[3] = WinterZodiacSigns;
-        for ( int i = 0; i < 4; ++i ) {
-            foreach ( var zodiacSign in zodiacSigns[i] ) {
-                zodiacSign.gameObject.SetActive(true);
-            }
-        }
+        zodiacSigns[3] = SpringZodiacSigns;
+        zodiacSigns[2] = SummerZodiacSigns;
+        zodiacSigns[1] = AutumnZodiacSigns;
+        zodiacSigns[0] = WinterZodiacSigns;
+        resetZodiac();
     }
     void Update(){
         bool leastOneHitted= false;
@@ -44,7 +40,7 @@ public class StarGate : MonoBehaviour
         bool leftHandGrabbed = TrackManager.Instance.GetLeftHandGrabbed();
         if( ! leftHandGrabbed ) {
             RaycastHit leftHit;
-            if ( Physics.Raycast( leftHandPosition, transform.forward, out leftHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Star") ) ) {
+            if ( Physics.Raycast( leftHandPosition, transform.forward, out leftHit, Mathf.Infinity, 1 << getLayer() ) ) {
                 ZodiacSign hittedZodiacSign = leftHit.collider.gameObject.GetComponent<ZodiacSign>();
                 if( hittedZodiacSign != null ) {
                     targetZodiacSigns[0] = hittedZodiacSign;
@@ -59,14 +55,17 @@ public class StarGate : MonoBehaviour
         bool rightHandGrabbed = TrackManager.Instance.GetRightHandGrabbed();
         if( ! rightHandGrabbed ) {
             RaycastHit rightHit;
-            if ( Physics.Raycast( rightHandPosition, transform.forward, out rightHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Star") ) ) {
+            if ( Physics.Raycast( rightHandPosition, transform.forward, out rightHit, Mathf.Infinity, 1 << getLayer() ) ) {
                 ZodiacSign hittedZodiacSign = rightHit.collider.gameObject.GetComponent<ZodiacSign>();
                 if( hittedZodiacSign != null ) {
                     targetZodiacSigns[1] = hittedZodiacSign;
+                    Debug.Log(hittedZodiacSign.name);
                     leastOneHitted = true;
                 }
-                else 
+                else{
+                    Debug.DrawLine(rightHandPosition, transform.forward, Color.blue, 1000);
                     targetZodiacSigns[1] = null;
+                }
             }
         }
 
@@ -123,10 +122,14 @@ public class StarGate : MonoBehaviour
         double rotateDelayTime = spinAngle / spinPerSecond;
         double rotateTick = rotateDelayTime / (float)RotateTickCount;
         waitForNextTurn(rotateDelayTime);
-        if(endAngle > startAngle)
+        if(endAngle > startAngle){
             ArduinoManager.Instance.SpinClockwise();
-        else 
+            currentLayer = ( currentLayer + 1 ) % 4;
+        }
+        else{ 
             ArduinoManager.Instance.SpinCounterClockwise();
+            currentLayer = ( currentLayer + 3 ) % 4;
+        }
         for(double i = rotateTick; i <= rotateDelayTime; i += rotateTick){
             currentAngle = Mathf.Lerp(startAngle, endAngle, (float)(i / rotateDelayTime));
             transform.rotation = Quaternion.Euler(0, currentAngle, 0);
@@ -137,5 +140,14 @@ public class StarGate : MonoBehaviour
         notReadyToTurn = true;
         await UniTask.Delay(TimeSpan.FromSeconds(delayTime));
         notReadyToTurn = false;
+    }
+    void resetZodiac(){
+        for ( int i = 0; i < 4; ++i ) {
+            foreach ( var zodiacSign in zodiacSigns[i] )
+                zodiacSign.gameObject.SetActive(true);
+        }
+    }
+    int getLayer(){
+        return LayerMask.NameToLayer($"s{currentLayer + 1}");   
     }
 }
