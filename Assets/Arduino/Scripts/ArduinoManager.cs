@@ -28,12 +28,12 @@ public class ArduinoManager : MonoBehaviour
     {
         serialPortUnit = new SerialPortUnit(PortName, BaudRate, DataBits);
     }
-    /*
+/*
     void Update(){
         if(Input.GetKeyDown("q")) SpinClockwise();
         if(Input.GetKeyDown("e")) SpinCounterClockwise();
     }
-    */
+*/  
     void OnApplicationQuit()
     {
         serialPortUnit.ClosePort();

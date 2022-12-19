@@ -726,6 +726,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5423385742310130496, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
         type: 3}
+      propertyPath: OnSwipeUpWithoutGrab.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423385742310130496, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
+        type: 3}
+      propertyPath: OnSwipeDownWithoutGrab.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423385742310130496, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
+        type: 3}
       propertyPath: OnSwipeLeft.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 971444959928363665}
@@ -751,6 +761,11 @@ PrefabInstance:
       objectReference: {fileID: 5487333530284177937}
     - target: {fileID: 5423385742310130496, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
         type: 3}
+      propertyPath: OnSwipeDownWithoutGrab.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423385742310130496, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
+        type: 3}
       propertyPath: OnSwipeUpWithoutGrab.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5487333530284177937}
@@ -764,6 +779,31 @@ PrefabInstance:
       propertyPath: OnSwipeDownWithoutGrab.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5487333530284177937}
+    - target: {fileID: 5423385742310130496, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
+        type: 3}
+      propertyPath: OnSwipeDownWithoutGrab.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5487333530284177937}
+    - target: {fileID: 5423385742310130496, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
+        type: 3}
+      propertyPath: OnSwipeDownWithoutGrab.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423385742310130496, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
+        type: 3}
+      propertyPath: OnSwipeDownWithoutGrab.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ReductZodiacSign
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423385742310130496, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
+        type: 3}
+      propertyPath: OnSwipeDownWithoutGrab.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: StarGate, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423385742310130496, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
+        type: 3}
+      propertyPath: OnSwipeDownWithoutGrab.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6006994405333603901, guid: d4b5835dd3749fa4bb9fae22e67dab0f,
         type: 3}
       propertyPath: m_RootOrder

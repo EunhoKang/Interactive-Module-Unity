@@ -31,15 +31,13 @@ public class ModuleManager : MonoBehaviour
         double rotateDelayTime = spinAngle / spinPerSecond;
         double rotateTick = rotateDelayTime / (float)RotateTickCount;
         waitForNextTurn(rotateDelayTime);
+        if(endAngle > startAngle)
+            ArduinoManager.Instance.SpinClockwise();
+        else 
+            ArduinoManager.Instance.SpinCounterClockwise();
         for(double i = rotateTick; i <= rotateDelayTime; i += rotateTick){
             currentAngle = Mathf.Lerp(startAngle, endAngle, (float)(i / rotateDelayTime));
             TargetObject.transform.rotation = Quaternion.Euler(0, currentAngle, 0);
-            
-            if(endAngle > startAngle)
-                ArduinoManager.Instance.SpinClockwise();
-            else 
-                ArduinoManager.Instance.SpinCounterClockwise();
-            
             await UniTask.Delay(TimeSpan.FromSeconds(rotateTick));
         }
     }

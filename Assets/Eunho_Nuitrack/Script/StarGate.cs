@@ -8,7 +8,6 @@ public class StarGate : MonoBehaviour
     private ZodiacSign enlargedZodiacSign;
     private List<ZodiacSign>[] zodiacSigns= new List<ZodiacSign>[4];
     #region Stars
-    public GameObject sheep;
     public List<ZodiacSign> SpringZodiacSigns = new List<ZodiacSign>();
     public List<ZodiacSign> SummerZodiacSigns = new List<ZodiacSign>();
     public List<ZodiacSign> AutumnZodiacSigns = new List<ZodiacSign>();
@@ -17,7 +16,6 @@ public class StarGate : MonoBehaviour
     #endregion
     #region Effects
     public GameObject cityLightEffect;
-    public GameObject explodeEffect;
     #endregion
     #region Unity Events
     void Start(){
@@ -68,23 +66,6 @@ public class StarGate : MonoBehaviour
     public void SetCityLightFalse()
     {
         cityLightEffect.SetActive(false);
-    }
-
-    public void SetSheepTrue()
-    {
-        sheep.SetActive(true);
-    }
-    public void SetSheepFalse()
-    {
-        sheep.SetActive(false);
-    }
-    public void SetExplodeTrue()
-    {
-        explodeEffect.SetActive(true);
-    }
-    public void SetExplodeFalse()
-    {
-        explodeEffect.SetActive(false);
     }
     #endregion
 }

@@ -158,19 +158,15 @@ public class TrackManager : MonoBehaviour
             OnSwipeRight.Invoke();
             break;
         case nuitrack.GestureType.GestureSwipeUp:
-            if( ( leftHandGrabbed && targetZodiacSigns[0] != null ) || ( rightHandGrabbed && targetZodiacSigns[1] != null ) ) {
+            if( ( leftHandGrabbed && targetZodiacSigns[0] != null ) || ( rightHandGrabbed && targetZodiacSigns[1] != null ) )
                 OnSwipeUpWithGrab.Invoke();
-                Debug.Log("Swipe up");
-            }
             else{
                 OnSwipeUpWithoutGrab.Invoke();
             }
             break;
         case nuitrack.GestureType.GestureSwipeDown:
-            if( ( leftHandGrabbed && targetZodiacSigns[0] != null ) || ( rightHandGrabbed && targetZodiacSigns[1] != null ) ) {
+            if( ( leftHandGrabbed && targetZodiacSigns[0] != null ) || ( rightHandGrabbed && targetZodiacSigns[1] != null ) )
                 OnSwipeDownWithGrab.Invoke();
-                Debug.Log("Swipe down");
-            }
             else{
                 OnSwipeDownWithoutGrab.Invoke();
             }
